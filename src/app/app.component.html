@@ -4,9 +4,9 @@
       <img src="assets/img/logo_crm.png" alt="logo">
     </div>
     <ul class="menu_list">
-      <li><mat-icon>dashboard</mat-icon>Dashboard</li>
-      <li><mat-icon>group</mat-icon>Contacts</li>
-      <li><mat-icon>info</mat-icon>Info</li>
+      <li routerLink="/"><mat-icon>dashboard</mat-icon>Dashboard</li>
+      <li routerLink="contacts"><mat-icon>group</mat-icon>Contacts</li>
+      <li routerLink="info"><mat-icon>info</mat-icon>Info</li>
     </ul>
   </mat-drawer>
 
@@ -20,5 +20,8 @@
         <span>Simple-CRM</span>
       </mat-toolbar-row>
     </mat-toolbar>
+    <div class="router_container">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </mat-drawer-container>
