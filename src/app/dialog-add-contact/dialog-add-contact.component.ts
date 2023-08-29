@@ -1,0 +1,49 @@
+import { Component } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
+import { Contact } from 'src/models/contact.class';
+
+@Component({
+  selector: 'app-dialog-add-contact',
+  templateUrl: './dialog-add-contact.component.html',
+  styleUrls: ['./dialog-add-contact.component.scss']
+})
+export class DialogAddContactComponent {
+
+  contact = new Contact();
+  birthDate!: Date;
+  newCategory!: String;
+  selectedValue!: String;
+  category: any = [
+    {
+      value: 'private', viewValue: 'Private'
+    },
+    {
+      value: 'business', viewValue: 'Business'
+    }
+  ];
+
+  constructor() { }
+
+  onNoClick() {
+
+  }
+
+  addToCategories() {
+    this.category.unshift({
+      value: this.newCategory.toLocaleLowerCase(),
+      viewValue: this.newCategory
+    });
+    this.selectedValue = this.newCategory.toLocaleLowerCase();
+    this.newCategory = '';
+  }
+
+  onValueChange(event: MatSelectChange) {
+    this.contact.category = event.value;
+    this.selectedValue = event.value;
+  }
+
+  saveContact() {
+    this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
+    console.log(this.contact)
+  }
+}

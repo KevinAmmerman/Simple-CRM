@@ -1,0 +1,20 @@
+form {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.full_width {
+    width: 100%;
+}
+
+mat-form-field {
+
+    @media (max-width: 609px) {
+        width: 100%;
+    }
+}

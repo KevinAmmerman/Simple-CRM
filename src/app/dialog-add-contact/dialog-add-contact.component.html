@@ -1,0 +1,82 @@
+<h1 mat-dialog-title>Add contact</h1>
+<div mat-dialog-content>
+    <form>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>First name</mat-label>
+                <input [(ngModel)]="contact.firstName" name="firstName" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last name</mat-label>
+                <input [(ngModel)]="contact.lastName" name="lastName" matInput>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full_width">
+                <mat-label>Birth date</mat-label>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <input [(ngModel)]="birthDate" name="birthDate" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input [(ngModel)]="contact.phone" name="phone" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input [(ngModel)]="contact.email" name="email" matInput>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full_width">
+                <mat-label>Company</mat-label>
+                <input [(ngModel)]="contact.company" name="company" matInput>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Street + No</mat-label>
+                <input [(ngModel)]="contact.street" name="street" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Country</mat-label>
+                <input [(ngModel)]="contact.country" name="country" matInput>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Zip-Code</mat-label>
+                <input [(ngModel)]="contact.zipCode" name="zipCode" matInput>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>City</mat-label>
+                <input [(ngModel)]="contact.city" name="city" matInput>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Categories</mat-label>
+                <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValue">
+                    <mat-form-field>
+                        <input (keydown.enter)="addToCategories()" [(ngModel)]="newCategory" name="newCatogery" matInput placeholder="Add new category">
+                    </mat-form-field>
+                    <mat-option *ngFor="let option of category" [value]="option.value">{{ option.viewValue}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full_width">
+                <mat-label>Notes</mat-label>
+                <textarea [(ngModel)]="contact.notes" name="notes" matInput></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button (click)="saveContact()" cdkFocusInitial>Ok</button>
+</div>
