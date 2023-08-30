@@ -6,10 +6,50 @@ form {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+    max-width: 440px;
 }
 
 .full_width {
     width: 100%;
+}
+
+.column {
+
+    @media (max-width: 609px) {
+        width: 100%;
+    }    
+}
+
+.column_split {
+    max-width: 48%;
+    position: relative;
+
+    mat-hint {
+        position: absolute;
+        top: -23px;
+        left: 50px;
+        font-size: 12px;
+
+        @media (max-width: 609px) {
+            font-size: 15px;
+            top: -31px;
+            left: 0;
+        }
+    }
+
+    div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    @media (max-width: 609px) {
+        max-width: none;
+        width: 100%;
+    }
+}
+
+.box_split {
+    max-width: 46%;
 }
 
 mat-form-field {

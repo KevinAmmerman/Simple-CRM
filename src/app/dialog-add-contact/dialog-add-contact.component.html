@@ -57,15 +57,38 @@
             </mat-form-field>
         </div>
         <div class="row">
-            <mat-form-field>
-                <mat-label>Categories</mat-label>
-                <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValue">
-                    <mat-form-field>
-                        <input (keydown.enter)="addToCategories()" [(ngModel)]="newCategory" name="newCatogery" matInput placeholder="Add new category">
+            <div class="column">
+                <mat-form-field>
+                    <mat-label>Categories</mat-label>
+                    <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValue">
+                        <mat-form-field>
+                            <input (keydown.enter)="addToCategories()" [(ngModel)]="newCategory" name="newCatogery"
+                                matInput placeholder="Add new category">
+                        </mat-form-field>
+                        <mat-option *ngFor="let option of category" [value]="option.value">{{
+                            option.viewValue}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="column_split">
+                <mat-hint>Reminder Intervals</mat-hint>
+                <div>
+                    <mat-form-field class="box_split">
+                        <mat-label>Qty</mat-label>
+                        <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValue">
+                            <mat-option *ngFor="let day of days" [value]="day">{{
+                                day}}</mat-option>
+                        </mat-select>
                     </mat-form-field>
-                    <mat-option *ngFor="let option of category" [value]="option.value">{{ option.viewValue}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                    <mat-form-field class="box_split">
+                        <mat-label>Period</mat-label>
+                        <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValue">
+                            <mat-option *ngFor="let period of periods" [value]="period">{{
+                                period}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
         </div>
         <div class="row">
             <mat-form-field class="full_width">

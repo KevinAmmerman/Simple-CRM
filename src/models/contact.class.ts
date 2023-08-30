@@ -10,6 +10,8 @@ export class Contact {
     zipCode!: Number;
     city!: String;
     category: String;
+    reminder_qty!: Number;
+    reminder_period!: String;
     notes!: String;
 
     constructor(obj?: any) {
@@ -24,6 +26,8 @@ export class Contact {
         this.zipCode =  obj ? obj.zipCode : '';
         this.city =  obj ? obj.city : '';
         this.category =  obj ? obj.category : '';
+        this.reminder_qty = obj ? obj.reminder_qty : '';
+        this.reminder_period = obj ? obj.reminder_period : '';
         this.notes =  obj ? obj.notes : '';
     }
 }

@@ -13,6 +13,8 @@ export class DialogAddContactComponent {
   birthDate!: Date;
   newCategory!: String;
   selectedValue!: String;
+  days: any = Array(31).fill(0).map((x, i) => i);
+  periods: any = ['Days', 'Weeks', 'Months']
   category: any = [
     {
       value: 'private', viewValue: 'Private'
@@ -34,12 +36,19 @@ export class DialogAddContactComponent {
       viewValue: this.newCategory
     });
     this.selectedValue = this.newCategory.toLocaleLowerCase();
+    this.contact.category = this.newCategory;
     this.newCategory = '';
   }
 
   onValueChange(event: MatSelectChange) {
-    this.contact.category = event.value;
-    this.selectedValue = event.value;
+    if (this.periods.includes(event.value)) {
+      this.contact.reminder_period = event.value.toLocaleLowerCase();
+    } else if (this.days.includes(event.value)) {
+      this.contact.reminder_qty = event.value;
+    } else {
+      this.contact.category = event.value;
+      this.selectedValue = event.value;
+    }
   }
 
   saveContact() {
