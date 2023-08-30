@@ -21,7 +21,7 @@ export class ContactsComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      
     });
   }
 }

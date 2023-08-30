@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FormGroupDirective } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { Contact } from 'src/models/contact.class';
 
@@ -23,11 +25,12 @@ export class DialogAddContactComponent {
       value: 'business', viewValue: 'Business'
     }
   ];
+  @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective; 
 
-  constructor() { }
+  constructor(private dialogRef: MatDialogRef<DialogAddContactComponent>) { }
 
-  onNoClick() {
-
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   addToCategories() {
@@ -53,6 +56,7 @@ export class DialogAddContactComponent {
 
   saveContact() {
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
+    this.dialogRef.close();
     console.log(this.contact)
   }
 }

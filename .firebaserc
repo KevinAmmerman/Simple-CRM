@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "touchpoint-68735": {
+      "hosting": {
+        "simple-crm": [
+          "touchpoint-68735"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "touchpoint-68735"
+  }
+}
