@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
+import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
 import { FormGroupDirective } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
@@ -27,7 +28,7 @@ export class DialogAddContactComponent {
   ];
   @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective; 
 
-  constructor(private dialogRef: MatDialogRef<DialogAddContactComponent>) { }
+  constructor(private dialogRef: MatDialogRef<DialogAddContactComponent>, private firestore: Firestore = inject(Firestore)) { }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -58,5 +59,7 @@ export class DialogAddContactComponent {
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
     this.dialogRef.close();
     console.log(this.contact)
+    const itemCollection = collection(this.firestore, 'contact');
+    setDoc(doc(itemCollection), this.contact.toJson());
   }
 }
