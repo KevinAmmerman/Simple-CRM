@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogAddContactComponent } from '../dialog-add-contact/dialog-add-contact.component';
 import { Contact } from 'src/models/contact.class';
 

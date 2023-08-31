@@ -1,9 +1,10 @@
 import { Component, ViewChild, inject } from '@angular/core';
-import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
 import { FormGroupDirective } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { Contact } from 'src/models/contact.class';
+
 
 @Component({
   selector: 'app-dialog-add-contact',
@@ -26,7 +27,7 @@ export class DialogAddContactComponent {
       value: 'business', viewValue: 'Business'
     }
   ];
-  @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective; 
+  @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective;
 
   constructor(private dialogRef: MatDialogRef<DialogAddContactComponent>, private firestore: Firestore = inject(Firestore)) { }
 
@@ -58,8 +59,8 @@ export class DialogAddContactComponent {
   saveContact() {
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
     this.dialogRef.close();
-    console.log(this.contact)
-    const itemCollection = collection(this.firestore, 'contact');
+    console.log(this.firestore);
+    const itemCollection = collection(this.firestore, 'contacts');
     setDoc(doc(itemCollection), this.contact.toJson());
   }
 }
