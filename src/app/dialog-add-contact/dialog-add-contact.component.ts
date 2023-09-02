@@ -1,10 +1,10 @@
 import { Component, ViewChild, inject } from '@angular/core';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { FormGroupDirective } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
-import { addDoc, collection } from 'firebase/firestore';
 import { Contact } from 'src/models/contact.class';
+import { ContactServiceService } from '../services/contact-service/contact-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -15,6 +15,7 @@ import { Contact } from 'src/models/contact.class';
 export class DialogAddContactComponent {
 
   contact = new Contact();
+  loading: boolean = false;
   birthDate!: Date;
   newCategory!: String;
   selectedValue!: String;
@@ -30,7 +31,7 @@ export class DialogAddContactComponent {
   ];
   @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective;
 
-  constructor(private dialogRef: MatDialogRef<DialogAddContactComponent>, private firestore: Firestore = inject(Firestore)) { }
+  constructor(private dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar) { }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -57,11 +58,17 @@ export class DialogAddContactComponent {
     }
   }
 
-  saveContact() {
+  async saveContact() {
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
-    this.dialogRef.close();
-    const itemCollection = collection(this.firestore, 'contacts');
-    // setDoc(doc(itemCollection), this.contact.toJson());
-    addDoc(itemCollection, this.contact.toJson());
+    try {
+      this.loading = true;
+      await this.contactservice.setContact(this.contact);
+      this.loading = false;
+      this.dialogRef.close();
+      this.snackBar.open('Contact successfully created', 'close', {duration: 3000});
+    } catch (error) {
+      this.loading = false;
+      this.snackBar.open('Something went wrong', 'close', {duration: 3000});
+    }
   }
 }
