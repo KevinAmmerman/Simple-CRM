@@ -1,18 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddContactComponent } from '../dialog-add-contact/dialog-add-contact.component';
-import { Contact } from 'src/models/contact.class';
 import { ContactServiceService } from '../services/contact-service/contact-service.service';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
 
 
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.scss'],
-  // standalone: true,
-  // imports: [MatTableModule, MatPaginatorModule],
+  styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent {
 
@@ -20,17 +15,13 @@ export class ContactsComponent {
   displayedColumns: string[] = ['firstName', 'last_interaction', 'category', 'phone', 'email', 'reminder_period'];
   dataSource: any;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-  }
 
   constructor(public dialog: MatDialog, private contactService: ContactServiceService) { }
 
   async ngOnInit() {
     (await this.contacts$).subscribe((contacts: any) => {
-      contacts.forEach(contact => {
+      contacts.forEach((contact: any) => {
         contact.last_interaction = this.convertDate(contact.last_interaction)
         contact.reminder_period = this.interval(contact.reminder_qty, contact.reminder_period);
       });
@@ -47,9 +38,9 @@ export class ContactsComponent {
       } else {
         period = 'month'
       }
-      return `${qty}. ${period}`;
+      return `${qty} ${period}`;
     } else {
-      return `${qty}. ${period}`
+      return `${qty} ${period}`
     }
   }
 
