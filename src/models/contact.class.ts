@@ -12,6 +12,7 @@ export class Contact {
     category: String;
     reminder_qty!: Number;
     reminder_period!: String;
+    last_interaction: Number;
     notes!: String;
 
     constructor(obj?: any) {
@@ -28,6 +29,7 @@ export class Contact {
         this.category = obj ? obj.category : '';
         this.reminder_qty = obj ? obj.reminder_qty : '';
         this.reminder_period = obj ? obj.reminder_period : '';
+        this.last_interaction = obj ? obj.last_interaction : '';
         this.notes = obj ? obj.notes : '';
     }
 
@@ -46,6 +48,7 @@ export class Contact {
             category: this.category,
             reminder_qty: this.reminder_qty,
             reminder_period: this.reminder_period,
+            last_interaction: this.last_interaction,
             notes: this.notes
         }
     }

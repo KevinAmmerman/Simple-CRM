@@ -17,6 +17,8 @@ export class DialogAddContactComponent {
   contact = new Contact();
   loading: boolean = false;
   birthDate!: Date;
+  last_interaction!: Date;
+  picker2: any;
   newCategory!: String;
   selectedValue!: String;
   days: any = Array(31).fill(0).map((x, i) => i);
@@ -60,6 +62,7 @@ export class DialogAddContactComponent {
 
   async saveContact() {
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
+    this.contact.last_interaction = this.last_interaction ? this.last_interaction.getTime() : 0;
     try {
       this.loading = true;
       await this.contactservice.setContact(this.contact);

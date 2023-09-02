@@ -94,6 +94,15 @@
             </div>
             <div class="row">
                 <mat-form-field class="full_width">
+                    <mat-label>Last interaction</mat-label>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <input [(ngModel)]="last_interaction" name="last_contact_date" matInput [matDatepicker]="picker2">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="full_width">
                     <mat-label>Notes</mat-label>
                     <textarea [(ngModel)]="contact.notes" name="notes" matInput></textarea>
                 </mat-form-field>

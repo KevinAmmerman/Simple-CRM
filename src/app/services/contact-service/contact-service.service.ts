@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { addDoc, collection } from 'firebase/firestore';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, collectionData } from '@angular/fire/firestore';
 import { Contact } from 'src/models/contact.class';
 
 @Injectable({
@@ -14,5 +14,13 @@ export class ContactServiceService {
     const itemCollection = collection(this.firestore, 'contacts');
     // setDoc(doc(itemCollection), this.contact.toJson());
     await addDoc(itemCollection, contact.toJson());
+  }
+
+  async getContacts() {
+    const itemCollection = collection(this.firestore, 'contacts');
+    let contacts$ = collectionData(itemCollection, {
+      idField: 'id'
+    });
+    return contacts$;
   }
 }

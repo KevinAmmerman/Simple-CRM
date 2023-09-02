@@ -26,6 +26,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
