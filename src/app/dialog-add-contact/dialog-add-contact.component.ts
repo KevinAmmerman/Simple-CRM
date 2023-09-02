@@ -33,11 +33,7 @@ export class DialogAddContactComponent {
   ];
   @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective;
 
-  constructor(private dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+  constructor(public dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar) { }
 
   addToCategories() {
     this.category.unshift({

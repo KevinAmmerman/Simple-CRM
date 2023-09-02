@@ -27,6 +27,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {MatTableModule} from '@angular/material/table';
     DashboardComponent,
     ContactsComponent,
     InfoComponent,
-    DialogAddContactComponent
+    DialogAddContactComponent,
+    ContactDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -52,11 +52,6 @@ export class ContactsComponent {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogAddContactComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-
-    });
+    this.dialog.open(DialogAddContactComponent);
   }
 }

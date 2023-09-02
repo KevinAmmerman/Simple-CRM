@@ -4,7 +4,19 @@
     bottom: 56px;
 }
 
+.hover_effect {
+    cursor: pointer;
+
+    &:hover {
+        background-color: #303030;
+    }
+}
+
 .link_no_style {
     text-decoration: none;
     color: white;
+
+    &:hover {
+        color: #C2195B;
+    }
 }

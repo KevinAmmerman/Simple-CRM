@@ -110,7 +110,7 @@
         </form>
     </div>
     <div mat-dialog-actions>
-        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button (click)="dialogRef.close()">Cancel</button>
         <button mat-button (click)="documentEditForm.ngSubmit.emit()" [disabled]="!documentEditForm.form.valid"
             cdkFocusInitial>Save</button>
     </div>
