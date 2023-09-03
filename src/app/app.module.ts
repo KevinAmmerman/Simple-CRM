@@ -29,6 +29,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import {MatCardModule} from '@angular/material/card';
     MatProgressBarModule,
     MatSnackBarModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,7 +5,8 @@ import { MatSelectChange } from '@angular/material/select';
 import { Contact } from 'src/models/contact.class';
 import { ContactServiceService } from '../services/contact-service/contact-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FlagServiceService } from '../services/contact-service/flag-service.service';
+import { FlagServiceService } from '../services/flag-service/flag-service.service';
+
 
 
 @Component({
@@ -52,6 +53,8 @@ export class DialogAddContactComponent {
       this.contact.reminder_period = event.value.toLocaleLowerCase();
     } else if (this.days.includes(event.value)) {
       this.contact.reminder_qty = event.value;
+    } else if (this.countries.includes(event.value)) {
+      this.contact.country = event.value;
     } else {
       this.contact.category = event.value;
       this.selectedValue = event.value;

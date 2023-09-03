@@ -43,10 +43,6 @@
                     <mat-label>Street + No</mat-label>
                     <input [(ngModel)]="contact.street" name="street" matInput>
                 </mat-form-field>
-                <!-- <mat-form-field>
-                    <mat-label>Country</mat-label>
-                    <input [(ngModel)]="contact.country" name="country" matInput>
-                </mat-form-field> -->
                 <mat-form-field>
                     <mat-label>Country</mat-label>
                     <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValue">

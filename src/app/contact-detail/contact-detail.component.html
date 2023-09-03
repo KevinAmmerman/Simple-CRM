@@ -1,12 +1,37 @@
-<mat-card class="contact_detail_header">
-    <div class="second_bg"></div>
-    <img class="profil_pic" src="assets/img/man.png" alt="">
-    <div class="contact_detail">
-        <h1>Thomas Müller</h1>
-        <div class="country_city_container">
-            <img src="" alt=""><span>München</span><span>Germany</span>
+<section>
+    <mat-card class="contact_detail_header">
+        <div class="second_bg"></div>
+        <img class="profil_pic" src="assets/img/man.png" alt="">
+        <div class="contact_detail">
+            <h1>{{contactDetails.firstName}} {{contactDetails.lastName}}</h1>
+            <div class="country_city_container">
+                <img *ngIf="flag" src="{{flag}}" alt=""><span *ngIf="contactDetails.city">{{contactDetails.city}},
+                </span><span *ngIf="contactDetails.country">{{contactDetails.country}}</span>
+            </div>
+            <span>Birthdate: {{contactDetails.birthDate}}</span>
+            <span>Last interaction: {{contactDetails.last_interaction}}</span>
         </div>
-        <span>10/05/1990</span>
-        <span>Last interaction: 08/30/2023</span>
-    </div>
-</mat-card>
+    </mat-card>
+
+    <mat-card class="contact_address_card">
+        <h2>Contact details</h2>
+        <mat-list>
+            <mat-list-item>
+                <span matListItemTitle>Street + No:</span>
+                <span matListItemLine>{{contactDetails.street}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemTitle>Zip-Code & City:</span>
+                <span matListItemLine>{{contactDetails.zipCode}}, {{contactDetails.city}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemTitle>Phone:</span>
+                <span matListItemLine><a class="link_style" href="tel:{{contactDetails.phone}}">{{contactDetails.phone}}</a></span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matListItemTitle>Email:</span>
+                <span matListItemLine><a class="link_style" href="mailto:{{contactDetails.email}}">{{contactDetails.email}}</a></span>
+            </mat-list-item>
+        </mat-list>
+    </mat-card>
+</section>

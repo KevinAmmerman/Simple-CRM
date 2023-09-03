@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddContactComponent } from '../dialog-add-contact/dialog-add-contact.component';
 import { ContactServiceService } from '../services/contact-service/contact-service.service';
+import { UtilityServiceService } from '../services/utility-service/utility-service.service';
 
 
 @Component({
@@ -17,38 +18,16 @@ export class ContactsComponent {
 
 
 
-  constructor(public dialog: MatDialog, private contactService: ContactServiceService) { }
+  constructor(public dialog: MatDialog, private contactService: ContactServiceService, private utilityservice: UtilityServiceService) { }
 
   async ngOnInit() {
     (await this.contacts$).subscribe((contacts: any) => {
       contacts.forEach((contact: any) => {
-        contact.last_interaction = this.convertDate(contact.last_interaction)
-        contact.reminder_period = this.interval(contact.reminder_qty, contact.reminder_period);
+        contact.last_interaction = this.utilityservice.convertDate(contact.last_interaction)
+        contact.reminder_period = this.utilityservice.interval(contact.reminder_qty, contact.reminder_period);
       });
       this.dataSource = contacts;
     })
-  }
-
-  interval(qty: Number, period: String) {
-    if (qty == 1) {
-      if (period == 'Days') {
-        period = 'day';
-      } else if (period == 'Weeks') {
-        period = 'week';
-      } else {
-        period = 'month'
-      }
-      return `${qty} ${period}`;
-    } else {
-      return `${qty} ${period}`
-    }
-  }
-
-  convertDate(value: Date) {
-    const date = new Date(value);
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${month}/${day}/${date.getFullYear()}`;
   }
 
   openDialog(): void {

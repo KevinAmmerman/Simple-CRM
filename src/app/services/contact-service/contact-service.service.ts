@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { addDoc, collection } from 'firebase/firestore';
-import { Firestore, collectionData } from '@angular/fire/firestore';
+import { addDoc, collection, doc } from 'firebase/firestore';
+import { Firestore, collectionData, docData } from '@angular/fire/firestore';
 import { Contact } from 'src/models/contact.class';
 
 @Injectable({
@@ -22,5 +22,11 @@ export class ContactServiceService {
       idField: 'id'
     });
     return contacts$;
+  }
+
+  getSingleContact(id: string) {
+    const itemDoc = doc(this.firestore, 'contacts', id);
+    let contact$ = docData(itemDoc);
+    return contact$;
   }
 }
