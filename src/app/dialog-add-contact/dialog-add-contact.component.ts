@@ -5,6 +5,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { Contact } from 'src/models/contact.class';
 import { ContactServiceService } from '../services/contact-service/contact-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FlagServiceService } from '../services/contact-service/flag-service.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class DialogAddContactComponent {
   birthDate!: Date;
   last_interaction!: Date;
   picker2: any;
+  countries: any = this.flagservice.returnArray();
   newCategory!: String;
   selectedValue!: String;
   days: any = Array(31).fill(0).map((x, i) => i);
@@ -33,7 +35,7 @@ export class DialogAddContactComponent {
   ];
   @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective;
 
-  constructor(public dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar) { }
+  constructor(public dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar, private flagservice: FlagServiceService) { }
 
   addToCategories() {
     this.category.unshift({
