@@ -6,6 +6,7 @@ import { Contact } from 'src/models/contact.class';
 import { ContactServiceService } from '../services/contact-service/contact-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FlagServiceService } from '../services/flag-service/flag-service.service';
+import { UtilityServiceService } from '../services/utility-service/utility-service.service';
 
 
 
@@ -20,6 +21,7 @@ export class DialogAddContactComponent {
   loading: boolean = false;
   birthDate!: Date;
   last_interaction!: Date;
+  notes: string;
   picker2: any;
   countries: any = this.flagservice.returnArray();
   newCategory!: String;
@@ -36,7 +38,7 @@ export class DialogAddContactComponent {
   ];
   @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective;
 
-  constructor(public dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar, private flagservice: FlagServiceService) { }
+  constructor(public dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar, private flagservice: FlagServiceService, private utilityservice: UtilityServiceService) { }
 
   addToCategories() {
     this.category.unshift({
@@ -62,6 +64,7 @@ export class DialogAddContactComponent {
   }
 
   async saveContact() {
+    this.contact.notes.push(this.utilityservice.setNote(this.notes));
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
     this.contact.last_interaction = this.last_interaction ? this.last_interaction.getTime() : 0;
     try {

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { addDoc, collection, doc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { Firestore, collectionData, docData } from '@angular/fire/firestore';
 import { Contact } from 'src/models/contact.class';
 
@@ -28,5 +28,10 @@ export class ContactServiceService {
     const itemDoc = doc(this.firestore, 'contacts', id);
     let contact$ = docData(itemDoc);
     return contact$;
+  }
+
+  async updateContact(id: string, contact: any) {
+    const itemDoc = doc(this.firestore, 'contacts', id);
+    await setDoc(itemDoc, contact.toJson());
   }
 }

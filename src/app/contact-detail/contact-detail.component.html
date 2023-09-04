@@ -8,30 +8,79 @@
                 <img *ngIf="flag" src="{{flag}}" alt=""><span *ngIf="contactDetails.city">{{contactDetails.city}},
                 </span><span *ngIf="contactDetails.country">{{contactDetails.country}}</span>
             </div>
-            <span>Birthdate: {{contactDetails.birthDate}}</span>
+            <span>Birth date: {{contactDetails.birthDate}}</span>
             <span>Last interaction: {{contactDetails.last_interaction}}</span>
+        </div>
+        <div class="contact_interactions">
+            <h3>Reminder interval</h3>
+            <div class="box">
+                <span>{{contactDetails.reminder_qty}}</span>
+                <span>{{contactDetails.reminder_period}}</span>
+                <button mat-raised-button matTooltip="This will reset the interval after interaction with contact">Reset</button>
+            </div>
         </div>
     </mat-card>
 
-    <mat-card class="contact_address_card">
-        <h2>Contact details</h2>
-        <mat-list>
-            <mat-list-item>
-                <span matListItemTitle>Street + No:</span>
-                <span matListItemLine>{{contactDetails.street}}</span>
-            </mat-list-item>
-            <mat-list-item>
-                <span matListItemTitle>Zip-Code & City:</span>
-                <span matListItemLine>{{contactDetails.zipCode}}, {{contactDetails.city}}</span>
-            </mat-list-item>
-            <mat-list-item>
-                <span matListItemTitle>Phone:</span>
-                <span matListItemLine><a class="link_style" href="tel:{{contactDetails.phone}}">{{contactDetails.phone}}</a></span>
-            </mat-list-item>
-            <mat-list-item>
-                <span matListItemTitle>Email:</span>
-                <span matListItemLine><a class="link_style" href="mailto:{{contactDetails.email}}">{{contactDetails.email}}</a></span>
-            </mat-list-item>
-        </mat-list>
+    <mat-card class="contact_info_card">
+        <h2>Contact information</h2>
+        <div class="contact_info_container">
+            <mat-list>
+                <mat-list-item>
+                    <span matListItemTitle>Street + No:</span>
+                    <span matListItemLine>{{contactDetails.street}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Zip-Code & City:</span>
+                    <span matListItemLine>{{contactDetails.zipCode}}, {{contactDetails.city}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Country:</span>
+                    <span matListItemLine>{{contactDetails.country}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Company:</span>
+                    <span matListItemLine>{{contactDetails.company}}</span>
+                </mat-list-item>
+            </mat-list>
+            <mat-list>
+                <mat-list-item>
+                    <span matListItemTitle>Phone:</span>
+                    <span matListItemLine><a class="link_style"
+                            href="tel:{{contactDetails.phone}}">{{contactDetails.phone}}</a></span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Email:</span>
+                    <span matListItemLine><a class="link_style"
+                            href="mailto:{{contactDetails.email}}">{{contactDetails.email}}</a></span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Category:</span>
+                    <span matListItemLine>{{contactDetails.category}}</span>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </mat-card>
+
+    <mat-card class="contact_notes">
+        <h2>Notes</h2>
+        <textarea [(ngModel)]="notes"></textarea>
+        <button (click)="saveNote()" mat-raised-button>Save</button>
+        <mat-accordion class="notes_history_panel">
+            <mat-expansion-panel hideToggle>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Notes History
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="note_container">
+                    <div class="note_box" *ngFor="let note of contactDetails.notes">
+                        <h3>Created: {{note.date}}</h3>
+                        <p>{{note.note}}</p>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
     </mat-card>
 </section>

@@ -30,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -65,7 +66,8 @@ import {MatListModule} from '@angular/material/list';
     MatSnackBarModule,
     MatTableModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,24 +13,24 @@ export class Contact {
     reminder_qty!: Number;
     reminder_period!: String;
     last_interaction: Number;
-    notes!: String;
+    notes!: any;
 
     constructor(obj?: any) {
         this.firstName = obj ? obj.firstName : '';
         this.lastName = obj ? obj.lastName : '';
         this.birthDate = obj ? obj.birthDate : '';
-        this.phone = obj ? obj.phone : '';
-        this.email = obj ? obj.email : '';
-        this.company = obj ? obj.company : '';
-        this.street = obj ? obj.street : '';
-        this.country = obj ? obj.country : '';
-        this.zipCode = obj ? obj.zipCode : '';
-        this.city = obj ? obj.city : '';
-        this.category = obj ? obj.category : '';
+        this.phone = obj ? obj.phone : '-';
+        this.email = obj ? obj.email : '-';
+        this.company = obj ? obj.company : '-';
+        this.street = obj ? obj.street : '-';
+        this.country = obj ? obj.country : '-';
+        this.zipCode = obj ? obj.zipCode : '-';
+        this.city = obj ? obj.city : '-';
+        this.category = obj ? obj.category : '-';
         this.reminder_qty = obj ? obj.reminder_qty : '';
         this.reminder_period = obj ? obj.reminder_period : '';
         this.last_interaction = obj ? obj.last_interaction : '';
-        this.notes = obj ? obj.notes : '';
+        this.notes = obj && obj.notes ? obj.notes : [];
     }
 
     public toJson() {

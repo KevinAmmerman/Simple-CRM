@@ -29,4 +29,13 @@ export class UtilityServiceService {
     const day = date.getDate();
     return `${month}/${day}/${date.getFullYear()}`;
   }
+
+
+  setNote(notes: string) {
+    let note = {
+      note: notes,
+      date: this.convertDate(new Date())
+    }
+    return note;
+  }
 }
