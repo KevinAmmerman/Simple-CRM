@@ -29,7 +29,6 @@ export class ContactDetailComponent {
         let countryCode = this.flagservice.countryCodes[contact['country']];
         this.flag = countryCode ? `https://www.countryflagicons.com/FLAT/64/${countryCode}.png` : '';
         this.contactDetails = new Contact(contact);
-        console.log(contact)
       })
     });
   }

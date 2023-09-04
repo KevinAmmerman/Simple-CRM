@@ -1,5 +1,11 @@
 <section>
     <mat-card class="contact_detail_header">
+        <button mat-icon-button class="edit_btn" [matMenuTriggerFor]="menu1">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu1="matMenu">
+            <button mat-menu-item><mat-icon>edit_note</mat-icon>Edit</button>
+        </mat-menu>
         <div class="second_bg"></div>
         <img class="profil_pic" src="assets/img/man.png" alt="">
         <div class="contact_detail">
@@ -16,7 +22,8 @@
             <div class="box">
                 <span>{{contactDetails.reminder_qty}}</span>
                 <span>{{contactDetails.reminder_period}}</span>
-                <button mat-raised-button matTooltip="This will reset the interval after interaction with contact">Reset</button>
+                <button mat-raised-button
+                    matTooltip="This will reset the interval after interaction with contact">Reset</button>
             </div>
         </div>
     </mat-card>
@@ -74,7 +81,7 @@
                         Notes History
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div class="note_container">
+                <div class="note_container test">
                     <div class="note_box" *ngFor="let note of contactDetails.notes">
                         <h3>Created: {{note.date}}</h3>
                         <p>{{note.note}}</p>

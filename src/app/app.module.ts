@@ -31,6 +31,7 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -67,7 +68,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTableModule,
     MatCardModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
