@@ -204,6 +204,8 @@ mat-list-item {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    max-height: 500px;
+    overflow-y: scroll;
 }
 
 .note_box {
@@ -221,9 +223,4 @@ mat-list-item {
     position: absolute;
     top: 0;
     right: 0;
-}
-
-.test {
-    max-height: 500px;
-    overflow-y: scroll;
 }

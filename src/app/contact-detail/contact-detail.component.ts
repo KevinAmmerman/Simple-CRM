@@ -22,6 +22,8 @@ export class ContactDetailComponent {
   notes: string;
   contactId: string;
   indexNote: string;
+  searchValue: string;
+  displayedNotes: any;
 
   constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService, public dialog: MatDialog) { }
 
@@ -34,16 +36,31 @@ export class ContactDetailComponent {
         let countryCode = this.flagservice.countryCodes[contact['country']];
         this.flag = countryCode ? `https://www.countryflagicons.com/FLAT/64/${countryCode}.png` : '';
         this.contactDetails = new Contact(contact);
+        this.displayedNotes = this.contactDetails.notes;
       })
     });
   }
+
+  searchNote() {
+    let filteredNotes = this.contactDetails.notes.filter((note: any) => this.checkIfIncluded(note, this.searchValue));
+    if (this.searchValue.length > 0) {
+      this.displayedNotes = filteredNotes;
+    } else {
+      this.displayedNotes = this.contactDetails.notes;
+    }
+  }
+
+  checkIfIncluded(n: any, search: string) {
+    return n.date.includes(search) ||
+        n.note.toLowerCase().includes(search);
+}
 
   saveNote() {
     let note = this.utilityservice.setNote(this.notes);
     this.contactDetails.notes.push(note);
     this.contactservice.updateContact(this.contactId, this.contactDetails);
     this.notes = '';
-    if (this.indexNote) this.deleteNote(this.indexNote);
+    if (this.indexNote !== '') this.deleteNote(this.indexNote);
   }
 
   editNote(i: any) {

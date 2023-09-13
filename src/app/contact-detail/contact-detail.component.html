@@ -97,7 +97,14 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="note_container test">
-                    <div class="note_box" *ngFor="let note of contactDetails.notes; let i = index">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>Search</mat-label>
+                        <input matInput type="text" [(ngModel)]="searchValue" (keyup)="searchNote()">
+                        <button *ngIf="searchValue" matSuffix mat-icon-button>
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <div class="note_box" *ngFor="let note of displayedNotes; let i = index">
                         <mat-icon [matMenuTriggerFor]="menu_note">more_vert</mat-icon>
                         <mat-menu #menu_note="matMenu">
                             <button mat-menu-item (click)="editNote(i)"><mat-icon>edit_note</mat-icon>Edit</button>

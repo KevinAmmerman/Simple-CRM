@@ -32,7 +32,7 @@ export class DialogEditContactInfoComponent {
   constructor(private snackBar: MatSnackBar, private contactservice: ContactServiceService, public dialogRef: MatDialogRef<DialogEditContactInfoComponent>, private flagservice: FlagServiceService) { }
 
   ngOnInit(): void {
-    this.selectedValueCategory = this.contact.category;
+    this.selectedValueCategory = this.contact.category.charAt(0).toUpperCase() + this.contact.category.slice(1);
     this.selectedValueCountry = this.contact.country;
   }
 

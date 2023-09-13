@@ -24,7 +24,7 @@ export class DialogEditReminderComponent {
 
   ngOnInit(): void {
     this.selectedValueDays = this.contact.reminder_qty;
-    this.selectedValuePeriod = this.contact.reminder_period.charAt(0).toUpperCase() + this.contact.reminder_period.slice(1);;
+    this.selectedValuePeriod = this.contact.reminder_period.charAt(0).toUpperCase() + this.contact.reminder_period.slice(1);
     console.log(this.selectedValuePeriod);
   }
 
