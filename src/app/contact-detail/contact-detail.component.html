@@ -1,9 +1,9 @@
 <section>
     <mat-card class="contact_detail_header">
-        <button mat-icon-button class="edit_btn" [matMenuTriggerFor]="menu1">
+        <button mat-icon-button class="edit_btn" [matMenuTriggerFor]="menu_contact_details">
             <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #menu1="matMenu">
+        <mat-menu #menu_contact_details="matMenu">
             <button mat-menu-item><mat-icon>edit_note</mat-icon>Edit</button>
         </mat-menu>
         <div class="second_bg"></div>
@@ -17,8 +17,17 @@
             <span>Birth date: {{contactDetails.birthDate}}</span>
             <span>Last interaction: {{contactDetails.last_interaction}}</span>
         </div>
+    </mat-card>
+
+    <mat-card class="reminder_card">
+        <button mat-icon-button class="edit_btn" [matMenuTriggerFor]="menu_reminder">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu_reminder="matMenu">
+            <button mat-menu-item><mat-icon>edit_note</mat-icon>Edit</button>
+        </mat-menu>
         <div class="contact_interactions">
-            <h3>Reminder interval</h3>
+            <h2>Reminder interval</h2>
             <div class="box">
                 <span>{{contactDetails.reminder_qty}}</span>
                 <span>{{contactDetails.reminder_period}}</span>
@@ -29,6 +38,12 @@
     </mat-card>
 
     <mat-card class="contact_info_card">
+        <button mat-icon-button class="edit_btn" [matMenuTriggerFor]="menu_contact_info">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu_contact_info="matMenu">
+            <button mat-menu-item><mat-icon>edit_note</mat-icon>Edit</button>
+        </mat-menu>
         <h2>Contact information</h2>
         <div class="contact_info_container">
             <mat-list>
@@ -78,7 +93,7 @@
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        Notes History
+                        Notes
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="note_container test">

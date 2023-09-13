@@ -68,25 +68,32 @@ section {
     }
 }
 
+// REMINDER-SECTION
+
+.reminder_card {
+    padding: 25px 50px;
+}
+
 .contact_interactions {
     z-index: 2;
-    margin-right: 50px;
-    margin-bottom: 15px;
 
-    h3 {
+    h2 {
         margin-bottom: 4px;
+        text-align: center;
     }
 }
 
 .box {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
 
     button {
         background-color: #096175;
     }
 }
+
 
 // CONTACT-INFORMATION-SECTION
 
