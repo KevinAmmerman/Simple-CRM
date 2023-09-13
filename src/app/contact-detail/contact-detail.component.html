@@ -42,7 +42,7 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu_contact_info="matMenu">
-            <button mat-menu-item><mat-icon>edit_note</mat-icon>Edit</button>
+            <button mat-menu-item (click)="editContactInfo()"><mat-icon>edit_note</mat-icon>Edit</button>
         </mat-menu>
         <h2>Contact information</h2>
         <div class="contact_info_container">

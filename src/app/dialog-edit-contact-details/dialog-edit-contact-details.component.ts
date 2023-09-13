@@ -17,7 +17,7 @@ export class DialogEditContactDetailsComponent {
   birthDate!: Date;
   contact: Contact;
 
-  constructor(private snackBar: MatSnackBar, private route: ActivatedRoute, private contactservice: ContactServiceService, public dialogRef: MatDialogRef<DialogEditContactDetailsComponent>) { }
+  constructor(private snackBar: MatSnackBar, private contactservice: ContactServiceService, public dialogRef: MatDialogRef<DialogEditContactDetailsComponent>) { }
 
   ngOnInit(): void {
     this.convertDate();

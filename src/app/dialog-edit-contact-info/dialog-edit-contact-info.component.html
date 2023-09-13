@@ -1,0 +1,67 @@
+<div class="dialog_container">
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <h1 mat-dialog-title>Add contact</h1>
+    <div mat-dialog-content>
+        <form (ngSubmit)="saveContact()" ngNativeValidate #documentEditForm="ngForm">
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Phone</mat-label>
+                    <input [(ngModel)]="contact.phone" name="phone" matInput>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input [(ngModel)]="contact.email" name="email" matInput>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="full_width">
+                    <mat-label>Company</mat-label>
+                    <input [(ngModel)]="contact.company" name="company" matInput>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Street + No</mat-label>
+                    <input [(ngModel)]="contact.street" name="street" matInput>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Country</mat-label>
+                    <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValueCountry">
+                        <mat-option *ngFor="let option of countries" [value]="option">{{
+                            option}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Zip-Code</mat-label>
+                    <input [(ngModel)]="contact.zipCode" name="zipCode" matInput>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>City</mat-label>
+                    <input [(ngModel)]="contact.city" name="city" matInput>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <div class="column full_width">
+                    <mat-form-field class="full_width">
+                        <mat-label>Categories</mat-label>
+                        <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValueCategory">
+                            <mat-form-field>
+                                <input (keydown.enter)="addToCategories()" [(ngModel)]="newCategory" name="newCatogery"
+                                    matInput placeholder="Add new category">
+                            </mat-form-field>
+                            <mat-option *ngFor="let option of category" [value]="option.value">{{
+                                option.viewValue}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="dialogRef.close()">Cancel</button>
+        <button mat-button (click)="documentEditForm.ngSubmit.emit()" [disabled]="!documentEditForm.form.valid"
+            cdkFocusInitial>Save</button>
+    </div>
+</div>

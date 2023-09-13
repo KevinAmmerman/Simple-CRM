@@ -1,0 +1,21 @@
+.row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    max-width: 440px;
+
+    @media (max-width: 609px) {
+        gap: 0;
+    }
+}
+
+.full_width {
+    width: 100%;
+}
+
+mat-form-field {
+
+    @media (max-width: 609px) {
+        width: 100%;
+    }
+}

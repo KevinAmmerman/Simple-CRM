@@ -34,6 +34,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatMenuModule} from '@angular/material/menu';
 import { DialogEditContactDetailsComponent } from './dialog-edit-contact-details/dialog-edit-contact-details.component';
 import { DialogEditReminderComponent } from './dialog-edit-reminder/dialog-edit-reminder.component';
+import { DialogEditContactInfoComponent } from './dialog-edit-contact-info/dialog-edit-contact-info.component';
 
 
 
@@ -46,7 +47,8 @@ import { DialogEditReminderComponent } from './dialog-edit-reminder/dialog-edit-
     DialogAddContactComponent,
     ContactDetailComponent,
     DialogEditContactDetailsComponent,
-    DialogEditReminderComponent
+    DialogEditReminderComponent,
+    DialogEditContactInfoComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { Contact } from 'src/models/contact.class';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditContactDetailsComponent } from '../dialog-edit-contact-details/dialog-edit-contact-details.component';
 import { DialogEditReminderComponent } from '../dialog-edit-reminder/dialog-edit-reminder.component';
+import { DialogEditContactInfoComponent } from '../dialog-edit-contact-info/dialog-edit-contact-info.component';
 
 @Component({
   selector: 'app-contact-detail',
@@ -51,6 +52,12 @@ export class ContactDetailComponent {
 
   editReminder() {
     let dialog = this.dialog.open(DialogEditReminderComponent);
+    dialog.componentInstance.contact = this.contactDetails;
+    dialog.componentInstance.contactId = this.contactId;
+  }
+
+  editContactInfo() {
+    let dialog = this.dialog.open(DialogEditContactInfoComponent);
     dialog.componentInstance.contact = this.contactDetails;
     dialog.componentInstance.contactId = this.contactId;
   }
