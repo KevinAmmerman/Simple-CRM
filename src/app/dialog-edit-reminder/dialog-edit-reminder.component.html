@@ -1,0 +1,30 @@
+<div class="dialog_container">
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <h1 mat-dialog-title>Edit contact</h1>
+    <div mat-dialog-content>
+        <form (ngSubmit)="saveContact()" ngNativeValidate #documentEditForm="ngForm">
+            <mat-hint>Reminder Intervals</mat-hint>
+            <div>
+                <mat-form-field class="box_split">
+                    <mat-label>Qty</mat-label>
+                    <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValueDays">
+                        <mat-option *ngFor="let day of days" [value]="day">{{
+                            day}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="box_split">
+                    <mat-label>Period</mat-label>
+                    <mat-select (selectionChange)="onValueChange($event)" [value]="selectedValuePeriod">
+                        <mat-option *ngFor="let period of periods" [value]="period">{{
+                            period}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="dialogRef.close()">Cancel</button>
+        <button mat-button (click)="documentEditForm.ngSubmit.emit()" [disabled]="!documentEditForm.form.valid"
+            cdkFocusInitial>Save</button>
+    </div>
+</div>

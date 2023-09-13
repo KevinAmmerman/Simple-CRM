@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { UtilityServiceService } from '../services/utility-service/utility-service.service';
 import { FlagServiceService } from '../services/flag-service/flag-service.service';
 import { Contact } from 'src/models/contact.class';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditContactDetailsComponent } from '../dialog-edit-contact-details/dialog-edit-contact-details.component';
+import { DialogEditReminderComponent } from '../dialog-edit-reminder/dialog-edit-reminder.component';
 
 @Component({
   selector: 'app-contact-detail',
@@ -18,7 +21,7 @@ export class ContactDetailComponent {
   notes: string;
   contactId: string;
 
-  constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService) { }
+  constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -38,5 +41,17 @@ export class ContactDetailComponent {
     this.contactDetails.notes.push(note);
     this.contactservice.updateContact(this.contactId, this.contactDetails);
     this.notes = '';
+  }
+
+  editContactDetails() {
+    let dialog = this.dialog.open(DialogEditContactDetailsComponent);
+    dialog.componentInstance.contact = this.contactDetails;
+    dialog.componentInstance.contactId = this.contactId;
+  }
+
+  editReminder() {
+    let dialog = this.dialog.open(DialogEditReminderComponent);
+    dialog.componentInstance.contact = this.contactDetails;
+    dialog.componentInstance.contactId = this.contactId;
   }
 }

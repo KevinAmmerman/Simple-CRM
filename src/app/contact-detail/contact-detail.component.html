@@ -4,7 +4,7 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu_contact_details="matMenu">
-            <button mat-menu-item><mat-icon>edit_note</mat-icon>Edit</button>
+            <button mat-menu-item (click)="editContactDetails()"><mat-icon>edit_note</mat-icon>Edit</button>
         </mat-menu>
         <div class="second_bg"></div>
         <img class="profil_pic" src="assets/img/man.png" alt="">
@@ -24,7 +24,7 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu_reminder="matMenu">
-            <button mat-menu-item><mat-icon>edit_note</mat-icon>Edit</button>
+            <button mat-menu-item (click)="editReminder()"><mat-icon>edit_note</mat-icon>Edit</button>
         </mat-menu>
         <div class="contact_interactions">
             <h2>Reminder interval</h2>
