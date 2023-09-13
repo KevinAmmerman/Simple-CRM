@@ -78,7 +78,7 @@ section {
     z-index: 2;
 
     h2 {
-        margin-bottom: 4px;
+        margin-bottom: 16px;
         text-align: center;
     }
 }
@@ -204,6 +204,17 @@ mat-list-item {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.note_box {
+    position: relative;
+
+    mat-icon {
+        position: absolute;
+        right: 8px;
+        top: 10px;
+        cursor: pointer;
+    }
 }
 
 .edit_btn {

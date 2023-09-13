@@ -97,7 +97,12 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="note_container test">
-                    <div class="note_box" *ngFor="let note of contactDetails.notes">
+                    <div class="note_box" *ngFor="let note of contactDetails.notes; let i = index">
+                        <mat-icon [matMenuTriggerFor]="menu_note">more_vert</mat-icon>
+                        <mat-menu #menu_note="matMenu">
+                            <button mat-menu-item (click)="editNote(i)"><mat-icon>edit_note</mat-icon>Edit</button>
+                            <button mat-menu-item (click)="deleteNote(i)"><mat-icon>delete</mat-icon>Edit</button>
+                        </mat-menu>
                         <h3>Created: {{note.date}}</h3>
                         <p>{{note.note}}</p>
                     </div>

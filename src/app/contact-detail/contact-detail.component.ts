@@ -21,6 +21,7 @@ export class ContactDetailComponent {
   panelOpenState: boolean = false
   notes: string;
   contactId: string;
+  indexNote: string;
 
   constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService, public dialog: MatDialog) { }
 
@@ -42,7 +43,19 @@ export class ContactDetailComponent {
     this.contactDetails.notes.push(note);
     this.contactservice.updateContact(this.contactId, this.contactDetails);
     this.notes = '';
+    if (this.indexNote) this.deleteNote(this.indexNote);
   }
+
+  editNote(i: any) {
+    this.notes = this.contactDetails.notes[i].note;
+    this.indexNote = i;
+  }
+
+  deleteNote(i: any) {
+    this.contactDetails.notes.splice(i, 1);
+    this.indexNote = '';
+    this.contactservice.updateContact(this.contactId, this.contactDetails);
+  } 
 
   editContactDetails() {
     let dialog = this.dialog.open(DialogEditContactDetailsComponent);
