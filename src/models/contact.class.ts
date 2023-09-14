@@ -10,9 +10,10 @@ export class Contact {
     zipCode!: Number;
     city!: String;
     category: String;
-    reminder_qty!: Number;
+    reminder_qty!: number;
     reminder_period!: any;
     last_interaction: Number;
+    next_interaction: Number;
     notes!: any;
 
     constructor(obj?: any) {
@@ -30,6 +31,7 @@ export class Contact {
         this.reminder_qty = obj ? obj.reminder_qty : '';
         this.reminder_period = obj ? obj.reminder_period : [];
         this.last_interaction = obj ? obj.last_interaction : '';
+        this.next_interaction = obj ? obj.next_interaction : '';
         this.notes = obj && obj.notes ? obj.notes : [];
     }
 
@@ -49,6 +51,7 @@ export class Contact {
             reminder_qty: this.reminder_qty,
             reminder_period: this.reminder_period,
             last_interaction: this.last_interaction,
+            next_interaction: this.next_interaction,
             notes: this.notes
         }
     }

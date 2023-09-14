@@ -22,6 +22,11 @@ export class UtilityServiceService {
     }
   }
 
+  calculateDays(qty: number, period: number) {
+    const days = qty * period;
+    return days;
+  }
+
 
   convertDate(value: Date) {
     const date = new Date(value);

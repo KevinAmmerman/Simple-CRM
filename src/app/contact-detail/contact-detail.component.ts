@@ -25,6 +25,7 @@ export class ContactDetailComponent {
   indexNote: string;
   searchValue: string;
   displayedNotes: any;
+  nextIntDays: Number;
 
   constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService, public dialog: MatDialog, private reminderservice: ReminderService) { }
 
@@ -39,6 +40,7 @@ export class ContactDetailComponent {
         this.flag = countryCode ? `https://www.countryflagicons.com/FLAT/64/${countryCode}.png` : '';
         this.contactDetails = new Contact(contact);
         this.displayedNotes = this.contactDetails.notes;
+        this.nextIntDays = this.reminderservice.checkNextInteraction(contact['next_interaction']);
       })
     });
   }
@@ -95,6 +97,6 @@ export class ContactDetailComponent {
   }
 
   getNextInteractionDate() {
-    this.reminderservice.calculateDate(this.contactDetails.reminder_qty, this.contactDetails.reminder_period);
+    
   }
 }
