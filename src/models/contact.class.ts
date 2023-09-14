@@ -11,7 +11,7 @@ export class Contact {
     city!: String;
     category: String;
     reminder_qty!: Number;
-    reminder_period!: String;
+    reminder_period!: any;
     last_interaction: Number;
     notes!: any;
 
@@ -28,7 +28,7 @@ export class Contact {
         this.city = obj ? obj.city : '-';
         this.category = obj ? obj.category : '-';
         this.reminder_qty = obj ? obj.reminder_qty : '';
-        this.reminder_period = obj ? obj.reminder_period : '';
+        this.reminder_period = obj ? obj.reminder_period : [];
         this.last_interaction = obj ? obj.last_interaction : '';
         this.notes = obj && obj.notes ? obj.notes : [];
     }

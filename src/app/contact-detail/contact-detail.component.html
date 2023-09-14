@@ -14,8 +14,8 @@
                 <img *ngIf="flag" src="{{flag}}" alt=""><span *ngIf="contactDetails.city">{{contactDetails.city}},
                 </span><span *ngIf="contactDetails.country">{{contactDetails.country}}</span>
             </div>
-            <span>Birth date: {{contactDetails.birthDate}}</span>
-            <span>Last interaction: {{contactDetails.last_interaction}}</span>
+            <span><b>Birth date:</b> {{contactDetails.birthDate}}</span>
+            <span><b>Last interaction:</b> {{contactDetails.last_interaction}}</span>
         </div>
     </mat-card>
 
@@ -30,7 +30,7 @@
             <h2>Reminder interval</h2>
             <div class="box">
                 <span>{{contactDetails.reminder_qty}}</span>
-                <span>{{contactDetails.reminder_period}}</span>
+                <span>{{contactDetails.reminder_period.viewValue}}</span>
                 <button mat-raised-button
                     matTooltip="This will reset the interval after interaction with contact">Reset</button>
             </div>

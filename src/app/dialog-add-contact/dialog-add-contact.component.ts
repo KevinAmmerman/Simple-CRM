@@ -27,7 +27,17 @@ export class DialogAddContactComponent {
   newCategory!: String;
   selectedValue!: String;
   days: any = Array(31).fill(0).map((x, i) => i);
-  periods: any = ['Days', 'Weeks', 'Months']
+  periods: any = [
+    {
+      value: 1, viewValue: 'Days'
+    },
+    {
+      value: 7, viewValue: 'Weeks'
+    },
+    {
+      value: 30, viewValue: 'Months'
+    }
+  ]
   category: any = [
     {
       value: 'private', viewValue: 'Private'
@@ -51,8 +61,9 @@ export class DialogAddContactComponent {
   }
 
   onValueChange(event: MatSelectChange) {
-    if (this.periods.includes(event.value)) {
-      this.contact.reminder_period = event.value.toLocaleLowerCase();
+    const selectedPeriod = this.periods.find((period: any) => period.viewValue === event.value);
+    if (selectedPeriod) {
+      this.contact.reminder_period = selectedPeriod;
     } else if (this.days.includes(event.value)) {
       this.contact.reminder_qty = event.value;
     } else if (this.countries.includes(event.value)) {

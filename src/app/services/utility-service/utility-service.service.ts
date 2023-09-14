@@ -10,15 +10,15 @@ export class UtilityServiceService {
   interval(qty: Number, period: String) {
     if (qty == 1) {
       if (period == 'Days') {
-        period = 'day';
+        period = 'Day';
       } else if (period == 'Weeks') {
-        period = 'week';
+        period = 'Week';
       } else {
-        period = 'month'
+        period = 'Month'
       }
-      return `${qty} ${period}`;
+      return `${period}`;
     } else {
-      return `${qty} ${period}`
+      return `${period}`
     }
   }
 
