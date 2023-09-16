@@ -7,20 +7,25 @@ export class UtilityServiceService {
 
   constructor() { }
 
-  interval(qty: Number, period: String) {
-    if (qty == 1) {
-      if (period == 'Days') {
-        period = 'Day';
-      } else if (period == 'Weeks') {
-        period = 'Week';
-      } else {
-        period = 'Month'
+
+  interval(qty: number, period: string) {
+    if (qty === 1) {
+      switch (period) {
+        case 'Days':
+          period = 'Day';
+          break;
+        case 'Weeks':
+          period = 'Week';
+          break;
+        default:
+          period = 'Month';
       }
-      return `${period}`;
-    } else {
-      return `${period}`
+    } else if (qty < 1) {
+      return '-';
     }
+    return period;
   }
+  
 
   calculateDays(qty: number, period: number) {
     const days = qty * period;

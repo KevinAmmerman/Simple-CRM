@@ -23,7 +23,7 @@ export class ContactsComponent {
   async ngOnInit() {
     (await this.contacts$).subscribe((contacts: any) => {
       contacts.forEach((contact: any) => {
-        contact.last_interaction = this.utilityservice.convertDate(contact.last_interaction)
+        contact.last_interaction = contact.last_interaction ? this.utilityservice.convertDate(contact.last_interaction) : '-';
         contact.reminder_period = this.utilityservice.interval(contact.reminder_qty, contact.reminder_period.viewValue);
       });
       this.dataSource = contacts;

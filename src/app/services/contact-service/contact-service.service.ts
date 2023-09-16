@@ -12,7 +12,6 @@ export class ContactServiceService {
 
   async setContact(contact: Contact) {
     const itemCollection = collection(this.firestore, 'contacts');
-    // setDoc(doc(itemCollection), this.contact.toJson());
     await addDoc(itemCollection, contact.toJson());
   }
 

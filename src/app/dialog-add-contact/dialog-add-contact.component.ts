@@ -27,7 +27,7 @@ export class DialogAddContactComponent {
   countries: any = this.flagservice.returnArray();
   newCategory!: String;
   selectedValue!: String;
-  days: any = Array(31).fill(0).map((x, i) => i);
+  days: any = Array(31).fill(0).map((x, i) => i + 1);
   periods: any = [
     {
       value: 1, viewValue: 'Days'
@@ -77,11 +77,10 @@ export class DialogAddContactComponent {
 
   async saveContact() {
     this.calculateNextInteraction();
-    this.contact.notes.push(this.utilityservice.setNote(this.notes));
-    this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
-    this.contact.last_interaction = this.last_interaction ? this.last_interaction.getTime() : 0;
-    this.contact.next_interaction = this.next_interaction ? this.next_interaction.getTime() : 0;
-    console.log(this.contact.next_interaction)
+    if (this.notes) this.contact.notes.push(this.utilityservice.setNote(this.notes));
+    if (this.birthDate) this.contact.birthDate = this.birthDate.getTime();
+    if (this.contact.last_interaction) this.contact.last_interaction = this.last_interaction.getTime();
+    if (this.next_interaction) this.contact.next_interaction = this.next_interaction.getTime();
     try {
       this.loading = true;
       await this.contactservice.setContact(this.contact);
@@ -95,8 +94,10 @@ export class DialogAddContactComponent {
   }
 
   calculateNextInteraction() {
-    const days = this.utilityservice.calculateDays(this.contact.reminder_qty, this.contact.reminder_period.value);
-    this.next_interaction = this.calculateFutureDate(this.last_interaction, days);
+    if (this.contact.reminder_period && this.contact.reminder_qty && this.contact.last_interaction !== 0) {
+      const days = this.utilityservice.calculateDays(this.contact.reminder_qty, this.contact.reminder_period.value);
+      this.next_interaction = this.calculateFutureDate(this.last_interaction, days);
+    }
   }
 
   calculateFutureDate(date: any, days: any) {

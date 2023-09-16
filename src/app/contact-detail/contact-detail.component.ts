@@ -33,8 +33,8 @@ export class ContactDetailComponent {
     this.route.params.subscribe((params) => {
       this.contactId = params['id']
       this.contactservice.getSingleContact(this.contactId).subscribe(contact => {
-        contact['birthDate'] = this.utilityservice.convertDate(contact['birthDate']);
-        contact['last_interaction'] = this.utilityservice.convertDate(contact['last_interaction']);
+        if (contact['birthDate']) contact['birthDate'] = this.utilityservice.convertDate(contact['birthDate']);
+        if (contact['last_interaction']) contact['last_interaction'] = this.utilityservice.convertDate(contact['last_interaction']);
         contact['reminder_period'].viewValue = this.utilityservice.interval(contact['reminder_qty'], contact['reminder_period'].viewValue)
         let countryCode = this.flagservice.countryCodes[contact['country']];
         this.flag = countryCode ? `https://www.countryflagicons.com/FLAT/64/${countryCode}.png` : '';
