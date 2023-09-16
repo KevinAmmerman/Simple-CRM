@@ -17,8 +17,8 @@ export class DialogEditContactInfoComponent {
   contactId: string;
   contact: Contact;
   countries: any = this.flagservice.returnArray();
-  selectedValueCountry!: String;
-  selectedValueCategory!: String;
+  selectedValueCountry!: string;
+  selectedValueCategory!: string;
   category: any = [
     {
       value: 'private', viewValue: 'Private'
@@ -27,7 +27,7 @@ export class DialogEditContactInfoComponent {
       value: 'business', viewValue: 'Business'
     }
   ];
-  newCategory!: String;
+  newCategory!: string;
 
   constructor(private snackBar: MatSnackBar, private contactservice: ContactServiceService, public dialogRef: MatDialogRef<DialogEditContactInfoComponent>, private flagservice: FlagServiceService) { }
 

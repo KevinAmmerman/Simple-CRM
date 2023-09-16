@@ -19,13 +19,14 @@ export class ContactDetailComponent {
 
   contactDetails: Contact = new Contact();
   public flag: string;
-  panelOpenState: boolean = false
+  panelOpenState: boolean = false;
   notes: string;
   contactId: string;
   indexNote: string;
   searchValue: string;
   displayedNotes: any;
-  nextIntDays: Number;
+  nextIntDays: number;
+  last_interaction: number;
 
   constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService, public dialog: MatDialog, private reminderservice: ReminderService) { }
 
@@ -38,9 +39,9 @@ export class ContactDetailComponent {
         contact['reminder_period'].viewValue = this.utilityservice.interval(contact['reminder_qty'], contact['reminder_period'].viewValue)
         let countryCode = this.flagservice.countryCodes[contact['country']];
         this.flag = countryCode ? `https://www.countryflagicons.com/FLAT/64/${countryCode}.png` : '';
+        this.nextIntDays = this.reminderservice.checkNextInteraction(contact['next_interaction']);
         this.contactDetails = new Contact(contact);
         this.displayedNotes = this.contactDetails.notes;
-        this.nextIntDays = this.reminderservice.checkNextInteraction(contact['next_interaction']);
       })
     });
   }
@@ -94,9 +95,5 @@ export class ContactDetailComponent {
     const dialog = this.dialog.open(DialogEditContactInfoComponent);
     dialog.componentInstance.contact = new Contact(this.contactDetails.toJson());
     dialog.componentInstance.contactId = this.contactId;
-  }
-
-  getNextInteractionDate() {
-    
   }
 }

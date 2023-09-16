@@ -16,13 +16,13 @@ export class ReminderService {
     return differenceInDays;
   }
 
-  calculateNextInteraction(contact: any, last_interaction: Date) {
+  getNextInteractionDate(contact: any, last_interaction: Date) {
     if (contact.reminder_period && contact.reminder_qty && contact.last_interaction !== 0) {
       const days = this.utilityservice.calculateDays(contact.reminder_qty, contact.reminder_period.value);
       const next_interaction = this.calculateFutureDate(last_interaction, days);
       return next_interaction;
     } else {
-      return new Date();
+      return null;
     }
   }
 

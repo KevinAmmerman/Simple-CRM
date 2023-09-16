@@ -26,8 +26,8 @@ export class DialogAddContactComponent {
   notes: string;
   picker2: any;
   countries: any = this.flagservice.returnArray();
-  newCategory!: String;
-  selectedValue!: String;
+  newCategory!: string;
+  selectedValue!: string;
   days: any = Array(31).fill(0).map((x, i) => i + 1);
   periods: any = [
     {
@@ -77,7 +77,9 @@ export class DialogAddContactComponent {
   }
 
   async saveContact() {
-    this.next_interaction = this.reminderservice.calculateNextInteraction(this.contact, this.last_interaction);
+    if (this.last_interaction && this.contact.reminder_period && this.contact.reminder_qty) {
+      this.next_interaction = this.reminderservice.getNextInteractionDate(this.contact, this.last_interaction);
+    };
     if (this.notes) this.contact.notes.push(this.utilityservice.setNote(this.notes));
     if (this.birthDate) this.contact.birthDate = this.birthDate.getTime();
     if (this.last_interaction) this.contact.last_interaction = this.last_interaction.getTime();

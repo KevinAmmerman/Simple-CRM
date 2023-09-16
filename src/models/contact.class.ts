@@ -1,19 +1,19 @@
 export class Contact {
-    firstName!: String;
-    lastName!: String;
-    birthDate!: Number;
-    phone!: Number;
-    email!: String;
-    company!: String;
-    street!: String;
+    firstName!: string;
+    lastName!: string;
+    birthDate!: number;
+    phone!: number;
+    email!: string;
+    company!: string;
+    street!: string;
     country!: string;
-    zipCode!: Number;
-    city!: String;
-    category: String;
+    zipCode!: number;
+    city!: string;
+    category: string;
     reminder_qty!: number;
     reminder_period!: any;
-    last_interaction: Number;
-    next_interaction: Number;
+    last_interaction: number;
+    next_interaction: number;
     notes!: any;
 
     constructor(obj?: any) {

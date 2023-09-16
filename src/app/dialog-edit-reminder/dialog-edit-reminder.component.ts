@@ -4,6 +4,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ContactServiceService } from '../services/contact-service/contact-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ReminderService } from '../services/reminder-service/reminder.service';
 
 @Component({
   selector: 'app-dialog-edit-reminder',
@@ -27,10 +28,10 @@ export class DialogEditReminderComponent {
       value: 30.44, viewValue: 'Months'
     }
   ];
-  selectedValueDays!: Number;
-  selectedValuePeriod!: String;
+  selectedValueDays!: number;
+  selectedValuePeriod!: string;
 
-  constructor(private snackBar: MatSnackBar, public dialogRef: MatDialogRef<DialogEditReminderComponent>, private contactservice: ContactServiceService) { }
+  constructor(private snackBar: MatSnackBar, public dialogRef: MatDialogRef<DialogEditReminderComponent>, private contactservice: ContactServiceService, private reminderservice: ReminderService) { }
 
   ngOnInit(): void {
     this.selectedValueDays = this.contact.reminder_qty;
@@ -45,8 +46,14 @@ export class DialogEditReminderComponent {
       this.contact.reminder_qty = event.value;
     }
   }
+  
+
+  checkNextInteraction(contact: any) {
+    contact.next_interaction = this.reminderservice.getNextInteractionDate(contact, contact.last_interaction);
+  }
 
   async saveContact() {
+    this.checkNextInteraction(this.contact);
     try {
       this.loading = true;
       await this.contactservice.updateContact(this.contactId, this.contact);;
