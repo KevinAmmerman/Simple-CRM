@@ -7,6 +7,7 @@ import { ContactServiceService } from '../services/contact-service/contact-servi
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FlagServiceService } from '../services/flag-service/flag-service.service';
 import { UtilityServiceService } from '../services/utility-service/utility-service.service';
+import { ReminderService } from '../services/reminder-service/reminder.service';
 
 
 
@@ -36,9 +37,9 @@ export class DialogAddContactComponent {
       value: 7, viewValue: 'Weeks'
     },
     {
-      value: 30, viewValue: 'Months'
+      value: 30.44, viewValue: 'Months'
     }
-  ]
+  ];
   category: any = [
     {
       value: 'private', viewValue: 'Private'
@@ -49,7 +50,7 @@ export class DialogAddContactComponent {
   ];
   @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective;
 
-  constructor(public dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar, private flagservice: FlagServiceService, private utilityservice: UtilityServiceService) { }
+  constructor(public dialogRef: MatDialogRef<DialogAddContactComponent>, private contactservice: ContactServiceService, private snackBar: MatSnackBar, private flagservice: FlagServiceService, private utilityservice: UtilityServiceService, private reminderservice: ReminderService) { }
 
   addToCategories() {
     this.category.unshift({
@@ -76,10 +77,10 @@ export class DialogAddContactComponent {
   }
 
   async saveContact() {
-    this.calculateNextInteraction();
+    this.next_interaction = this.reminderservice.calculateNextInteraction(this.contact, this.last_interaction);
     if (this.notes) this.contact.notes.push(this.utilityservice.setNote(this.notes));
     if (this.birthDate) this.contact.birthDate = this.birthDate.getTime();
-    if (this.contact.last_interaction) this.contact.last_interaction = this.last_interaction.getTime();
+    if (this.last_interaction) this.contact.last_interaction = this.last_interaction.getTime();
     if (this.next_interaction) this.contact.next_interaction = this.next_interaction.getTime();
     try {
       this.loading = true;
@@ -91,18 +92,5 @@ export class DialogAddContactComponent {
       this.loading = false;
       this.snackBar.open('Something went wrong', 'close', { duration: 3000 });
     }
-  }
-
-  calculateNextInteraction() {
-    if (this.contact.reminder_period && this.contact.reminder_qty && this.contact.last_interaction !== 0) {
-      const days = this.utilityservice.calculateDays(this.contact.reminder_qty, this.contact.reminder_period.value);
-      this.next_interaction = this.calculateFutureDate(this.last_interaction, days);
-    }
-  }
-
-  calculateFutureDate(date: any, days: any) {
-    const newDate = new Date(date);
-    newDate.setDate(newDate.getDate() + days);
-    return newDate;
   }
 }

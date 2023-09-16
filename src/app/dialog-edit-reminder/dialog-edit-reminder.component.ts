@@ -16,21 +16,31 @@ export class DialogEditReminderComponent {
   contactId: string;
   contact: Contact;
   days: any = Array(31).fill(0).map((x, i) => i);
-  periods: any = ['Days', 'Weeks', 'Months'];
+  periods: any = [
+    {
+      value: 1, viewValue: 'Days'
+    },
+    {
+      value: 7, viewValue: 'Weeks'
+    },
+    {
+      value: 30.44, viewValue: 'Months'
+    }
+  ];
   selectedValueDays!: Number;
   selectedValuePeriod!: String;
 
-  constructor(private snackBar: MatSnackBar, public dialogRef: MatDialogRef<DialogEditReminderComponent>, private contactservice: ContactServiceService) {}
+  constructor(private snackBar: MatSnackBar, public dialogRef: MatDialogRef<DialogEditReminderComponent>, private contactservice: ContactServiceService) { }
 
   ngOnInit(): void {
     this.selectedValueDays = this.contact.reminder_qty;
-    this.selectedValuePeriod = this.contact.reminder_period.charAt(0).toUpperCase() + this.contact.reminder_period.slice(1);
-    console.log(this.selectedValuePeriod);
+    this.selectedValuePeriod = this.contact.reminder_period.viewValue;
   }
 
   onValueChange(event: MatSelectChange) {
-    if (this.periods.includes(event.value)) {
-      this.contact.reminder_period = event.value.toLocaleLowerCase();
+    const selectedPeriod = this.periods.find((period: any) => period.viewValue === event.value);
+    if (selectedPeriod) {
+      this.contact.reminder_period = selectedPeriod;
     } else if (this.days.includes(event.value)) {
       this.contact.reminder_qty = event.value;
     }
@@ -42,10 +52,10 @@ export class DialogEditReminderComponent {
       await this.contactservice.updateContact(this.contactId, this.contact);;
       this.loading = false;
       this.dialogRef.close();
-      this.snackBar.open('Reminder successfully edited', 'close', {duration: 3000});
+      this.snackBar.open('Reminder successfully edited', 'close', { duration: 3000 });
     } catch (error) {
       this.loading = false;
-      this.snackBar.open('Something went wrong', 'close', {duration: 3000});
+      this.snackBar.open('Something went wrong', 'close', { duration: 3000 });
     }
   }
 

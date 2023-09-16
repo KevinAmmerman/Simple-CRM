@@ -15,25 +15,29 @@ export class DialogEditContactDetailsComponent {
   loading: boolean = false;
   contactId: string;
   birthDate!: Date;
+  last_interaction!: Date;
   contact: Contact;
 
   constructor(private snackBar: MatSnackBar, private contactservice: ContactServiceService, public dialogRef: MatDialogRef<DialogEditContactDetailsComponent>) { }
 
   ngOnInit(): void {
-    this.convertDate();
+    this.birthDate = this.convertDate(this.contact.birthDate);
+    this.last_interaction = this.convertDate(this.contact.last_interaction);
   }
 
-  convertDate() {
-    const dateStr: string = this.contact.birthDate.toString();
+  convertDate(dateToConvert) {
+    const dateStr: string = dateToConvert.toString();
     const [monthStr, dayStr, yearStr] = dateStr.split('/');
     const month = Number(monthStr);
     const day = Number(dayStr);
     const year = Number(yearStr);
-    this.birthDate = new Date(year, month - 1, day);
+    const date = new Date(year, month - 1, day);
+    return date;
   }
 
   async saveContact() {
     this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
+    this.contact.last_interaction = this.last_interaction ? this.last_interaction.getTime() : 0;
     try {
       this.loading = true;
       await this.contactservice.updateContact(this.contactId, this.contact);;
