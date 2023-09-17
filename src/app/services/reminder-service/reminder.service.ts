@@ -8,7 +8,7 @@ export class ReminderService {
 
   constructor(private utilityservice: UtilityServiceService) { }
 
-  checkNextInteraction(nextInt: Date,) {
+  checkNextInteractionDaysLeft(nextInt: Date,) {
     const today = new Date();
     const nextInterDate = new Date(nextInt);
     const differenceInMilliseconds = nextInterDate.getTime() - today.getTime();
@@ -29,6 +29,7 @@ export class ReminderService {
   calculateFutureDate(date: any, days: any) {
     const newDate = new Date(date);
     newDate.setDate(newDate.getDate() + days);
-    return newDate;
+    const timeStamp = newDate.getTime();
+    return timeStamp;
   }
 }

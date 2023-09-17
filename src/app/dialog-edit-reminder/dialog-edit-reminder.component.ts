@@ -36,6 +36,7 @@ export class DialogEditReminderComponent {
   ngOnInit(): void {
     this.selectedValueDays = this.contact.reminder_qty;
     this.selectedValuePeriod = this.contact.reminder_period.viewValue;
+    console.log(this.contact)
   }
 
   onValueChange(event: MatSelectChange) {

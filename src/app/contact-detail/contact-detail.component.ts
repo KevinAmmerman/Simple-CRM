@@ -9,6 +9,7 @@ import { DialogEditContactDetailsComponent } from '../dialog-edit-contact-detail
 import { DialogEditReminderComponent } from '../dialog-edit-reminder/dialog-edit-reminder.component';
 import { DialogEditContactInfoComponent } from '../dialog-edit-contact-info/dialog-edit-contact-info.component';
 import { ReminderService } from '../services/reminder-service/reminder.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contact-detail',
@@ -18,6 +19,7 @@ import { ReminderService } from '../services/reminder-service/reminder.service';
 export class ContactDetailComponent {
 
   contactDetails: Contact = new Contact();
+  contactEditReminder: Contact;
   public flag: string;
   panelOpenState: boolean = false;
   notes: string;
@@ -28,23 +30,42 @@ export class ContactDetailComponent {
   nextIntDays: number;
   last_interaction: number;
 
-  constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService, public dialog: MatDialog, private reminderservice: ReminderService) { }
+
+  constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService, public dialog: MatDialog, private reminderservice: ReminderService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.contactId = params['id']
+      this.contactId = params['id'];
       this.contactservice.getSingleContact(this.contactId).subscribe(contact => {
-        if (contact['birthDate']) contact['birthDate'] = this.utilityservice.convertDate(contact['birthDate']);
-        if (contact['last_interaction']) contact['last_interaction'] = this.utilityservice.convertDate(contact['last_interaction']);
-        contact['reminder_period'].viewValue = this.utilityservice.interval(contact['reminder_qty'], contact['reminder_period'].viewValue)
-        let countryCode = this.flagservice.countryCodes[contact['country']];
-        this.flag = countryCode ? `https://www.countryflagicons.com/FLAT/64/${countryCode}.png` : '';
-        this.nextIntDays = this.reminderservice.checkNextInteraction(contact['next_interaction']);
-        this.contactDetails = new Contact(contact);
+        this.contactEditReminder = new Contact(contact);
+        const transformedContact = this.transformContact(contact);
+        this.getFlagOfCountry(contact);
+        this.calcDaysLeftToNextInteraction(contact);
+        this.contactDetails = new Contact(transformedContact);
         this.displayedNotes = this.contactDetails.notes;
-      })
+      }), (error: any) => {
+        this.snackBar.open(`Error retrieving contact: ${error}`, 'close', { duration: 3000 });
+      }
     });
   }
+
+  transformContact(contact: any) {
+    const transformedContact = { ...contact };
+    if (contact.birthDate) transformedContact.birthDate = this.utilityservice.convertDate(contact.birthDate);
+    if (contact.last_interaction) transformedContact.last_interaction = this.utilityservice.convertDate(contact.last_interaction);
+    transformedContact.reminder_period.viewValue = this.utilityservice.interval(contact.reminder_qty, contact.reminder_period.viewValue)
+    return transformedContact;
+  }
+
+  getFlagOfCountry(contact: any) {
+    let countryCode = this.flagservice.countryCodes[contact.country];
+    this.flag = countryCode ? `https://www.countryflagicons.com/FLAT/64/${countryCode}.png` : '';
+  }
+
+  calcDaysLeftToNextInteraction(contact: any) {
+    this.nextIntDays = this.reminderservice.checkNextInteractionDaysLeft(contact.next_interaction);
+  }
+
 
   searchNote() {
     let filteredNotes = this.contactDetails.notes.filter((note: any) => this.checkIfIncluded(note, this.searchValue));
@@ -57,8 +78,8 @@ export class ContactDetailComponent {
 
   checkIfIncluded(n: any, search: string) {
     return n.date.includes(search) ||
-        n.note.toLowerCase().includes(search);
-}
+      n.note.toLowerCase().includes(search);
+  }
 
   saveNote() {
     let note = this.utilityservice.setNote(this.notes);
@@ -77,7 +98,7 @@ export class ContactDetailComponent {
     this.contactDetails.notes.splice(i, 1);
     this.indexNote = '';
     this.contactservice.updateContact(this.contactId, this.contactDetails);
-  } 
+  }
 
   editContactDetails() {
     const dialog = this.dialog.open(DialogEditContactDetailsComponent);
@@ -87,7 +108,7 @@ export class ContactDetailComponent {
 
   editReminder() {
     const dialog = this.dialog.open(DialogEditReminderComponent);
-    dialog.componentInstance.contact = new Contact(this.contactDetails.toJson());
+    dialog.componentInstance.contact = new Contact(this.contactEditReminder.toJson());
     dialog.componentInstance.contactId = this.contactId;
   }
 
