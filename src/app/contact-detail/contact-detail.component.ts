@@ -19,7 +19,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ContactDetailComponent {
 
   contactDetails: Contact = new Contact();
-  contactEditReminder: Contact;
   public flag: string;
   panelOpenState: boolean = false;
   notes: string;
@@ -28,20 +27,24 @@ export class ContactDetailComponent {
   searchValue: string;
   displayedNotes: any;
   nextIntDays: number;
-  last_interaction: number;
+  last_interaction: string;
+  next_interaction: string;
+  reminder_qty: number;
+  reminder_period: any[] = [];
+  birthDate: string;
 
 
   constructor(private contactservice: ContactServiceService, private route: ActivatedRoute, private utilityservice: UtilityServiceService, private flagservice: FlagServiceService, public dialog: MatDialog, private reminderservice: ReminderService, private snackBar: MatSnackBar) { }
+
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.contactId = params['id'];
       this.contactservice.getSingleContact(this.contactId).subscribe(contact => {
-        this.contactEditReminder = new Contact(contact);
-        const transformedContact = this.transformContact(contact);
+        this.setContactLocalVar(contact);
         this.getFlagOfCountry(contact);
         this.calcDaysLeftToNextInteraction(contact);
-        this.contactDetails = new Contact(transformedContact);
+        this.contactDetails = new Contact(contact);
         this.displayedNotes = this.contactDetails.notes;
       }), (error: any) => {
         this.snackBar.open(`Error retrieving contact: ${error}`, 'close', { duration: 3000 });
@@ -49,12 +52,12 @@ export class ContactDetailComponent {
     });
   }
 
-  transformContact(contact: any) {
-    const transformedContact = { ...contact };
-    if (contact.birthDate) transformedContact.birthDate = this.utilityservice.convertDate(contact.birthDate);
-    if (contact.last_interaction) transformedContact.last_interaction = this.utilityservice.convertDate(contact.last_interaction);
-    transformedContact.reminder_period.viewValue = this.utilityservice.interval(contact.reminder_qty, contact.reminder_period.viewValue)
-    return transformedContact;
+  setContactLocalVar(contact: any) {
+    if (contact.birthDate) this.birthDate = this.utilityservice.convertDate(contact.birthDate);
+    if (contact.last_interaction) this.last_interaction = this.utilityservice.convertDate(contact.last_interaction);
+    if (contact.next_interaction) this.next_interaction = this.utilityservice.convertDate(contact.next_interaction);
+    if (contact.reminder_qty) this.reminder_qty = contact.reminder_qty;
+    this.reminder_period = this.utilityservice.interval(contact.reminder_qty, contact.reminder_period.viewValue)
   }
 
   getFlagOfCountry(contact: any) {
@@ -64,6 +67,16 @@ export class ContactDetailComponent {
 
   calcDaysLeftToNextInteraction(contact: any) {
     this.nextIntDays = this.reminderservice.checkNextInteractionDaysLeft(contact.next_interaction);
+  }
+
+  resetLastInt() {
+    console.log('ContactDetails',this.contactDetails.reminder_period)
+    console.log('ContactEditReminder',this.contactDetails.reminder_qty)
+    const newDate = new Date();
+    const timeStamp = newDate.getTime();
+    this.contactDetails.last_interaction = timeStamp;
+    this.contactDetails.next_interaction = this.reminderservice.getNextInteractionDate(this.contactDetails, this.contactDetails.last_interaction);
+    this.contactservice.updateContact(this.contactId, this.contactDetails)
   }
 
 
@@ -108,7 +121,7 @@ export class ContactDetailComponent {
 
   editReminder() {
     const dialog = this.dialog.open(DialogEditReminderComponent);
-    dialog.componentInstance.contact = new Contact(this.contactEditReminder.toJson());
+    dialog.componentInstance.contact = new Contact(this.contactDetails.toJson());
     dialog.componentInstance.contactId = this.contactId;
   }
 

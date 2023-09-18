@@ -8,24 +8,23 @@ export class UtilityServiceService {
   constructor() { }
 
 
-  interval(qty: number, period: string) {
-    if (qty === 1) {
-      switch (period) {
-        case 'Days':
-          period = 'Day';
-          break;
-        case 'Weeks':
-          period = 'Week';
-          break;
-        default:
-          period = 'Month';
-      }
-    } else if (qty < 1) {
+  interval(quantity: number, timePeriod: string) {
+    const timeUnits = {
+      Day: { singular: 'Day', plural: 'Days' },
+      Days: { singular: 'Day', plural: 'Days' },
+      Week: { singular: 'Week', plural: 'Weeks' },
+      Weeks: { singular: 'Week', plural: 'Weeks' },
+      Month: { singular: 'Month', plural: 'Months' },
+      Months: { singular: 'Month', plural: 'Months' }
+    };
+    if (quantity < 1) {
       return '-';
     }
-    return period;
+    const unit = timeUnits[timePeriod];
+
+    return quantity === 1 ? unit.singular : unit.plural;
   }
-  
+
 
   calculateDays(qty: number, period: number) {
     const days = qty * period;

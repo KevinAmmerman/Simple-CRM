@@ -29,7 +29,7 @@
 
             <ng-container matColumnDef="reminder_period">
                 <th mat-header-cell *matHeaderCellDef> Reminder Interval</th>
-                <td mat-cell *matCellDef="let element">{{element.reminder_qty}} {{element.reminder_period}} </td>
+                <td mat-cell *matCellDef="let element">{{element.reminder_qty}} {{element.reminder_period.viewValue}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

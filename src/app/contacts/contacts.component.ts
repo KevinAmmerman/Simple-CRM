@@ -20,7 +20,6 @@ export class ContactsComponent {
   dataSource: any = [];
 
 
-
   constructor(public dialog: MatDialog, private contactService: ContactServiceService, private utilityservice: UtilityServiceService, private reminderservice: ReminderService, private snackBar: MatSnackBar) { }
 
 
@@ -28,9 +27,10 @@ export class ContactsComponent {
     (await this.contacts$).subscribe((contacts: any) => {
       contacts.forEach((contact: any) => {
         this.checkNextInteraction(contact);
+        contact.nextIntDays = this.reminderservice.checkNextInteractionDaysLeft(contact.next_interaction);
         contact.last_interaction = contact.last_interaction ? this.utilityservice.convertDate(contact.last_interaction) : '-';
         contact.next_interaction = contact.next_interaction ? this.utilityservice.convertDate(contact.next_interaction) : '-';
-        contact.reminder_period = this.utilityservice.interval(contact.reminder_qty, contact.reminder_period.viewValue);
+        contact.reminder_period.viewValue = this.utilityservice.interval(contact.reminder_qty, contact.reminder_period.viewValue);
       });
       this.dataSource = contacts;
     }), (error: any) => {

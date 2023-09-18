@@ -21,7 +21,7 @@ export class DialogAddContactComponent {
   contact = new Contact();
   loading: boolean = false;
   birthDate!: Date;
-  last_interaction!: Date;
+  last_interaction!: any;
   next_interaction!: number;
   notes: string;
   picker2: any;
@@ -31,13 +31,13 @@ export class DialogAddContactComponent {
   days: any = Array(31).fill(0).map((_, i) => i + 1);
   periods: any = [
     {
-      value: 1, viewValue: 'Days'
+      value: 1, viewValue: 'Day'
     },
     {
-      value: 7, viewValue: 'Weeks'
+      value: 7, viewValue: 'Week'
     },
     {
-      value: 30.44, viewValue: 'Months'
+      value: 30.44, viewValue: 'Month'
     }
   ];
   category: any = [
@@ -45,7 +45,10 @@ export class DialogAddContactComponent {
       value: 'private', viewValue: 'Private'
     },
     {
-      value: 'business', viewValue: 'Business'
+      value: 'family', viewValue: 'Family'
+    },
+    {
+      value: 'friend', viewValue: 'Friends'
     }
   ];
   @ViewChild('documentEditForm') documentEditForm!: FormGroupDirective;
@@ -68,11 +71,25 @@ export class DialogAddContactComponent {
       this.contact.reminder_period = selectedPeriod;
     } else if (this.days.includes(event.value)) {
       this.contact.reminder_qty = event.value;
+      this.toggleSingularPlural(event.value);
     } else if (this.countries.includes(event.value)) {
       this.contact.country = event.value;
     } else {
       this.contact.category = event.value;
       this.selectedValue = event.value;
+    }
+  }
+
+  toggleSingularPlural(quantity: number) {
+    const timeUnits = [
+      { singular: 'Day', plural: 'Days' },
+      { singular: 'Week', plural: 'Weeks' },
+      { singular: 'Month', plural: 'Months' },
+    ];
+    const key = quantity === 1 ? 'singular' : 'plural';
+
+    for (let i = 0; i < timeUnits.length; i++) {
+      this.periods[i].viewValue = timeUnits[i][key];
     }
   }
 

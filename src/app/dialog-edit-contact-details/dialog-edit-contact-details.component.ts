@@ -4,6 +4,7 @@ import { ContactServiceService } from '../services/contact-service/contact-servi
 import { Contact } from 'src/models/contact.class';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ReminderService } from '../services/reminder-service/reminder.service';
 
 @Component({
   selector: 'app-dialog-edit-contact-details',
@@ -18,26 +19,18 @@ export class DialogEditContactDetailsComponent {
   last_interaction!: Date;
   contact: Contact;
 
-  constructor(private snackBar: MatSnackBar, private contactservice: ContactServiceService, public dialogRef: MatDialogRef<DialogEditContactDetailsComponent>) { }
+  constructor(private snackBar: MatSnackBar, private contactservice: ContactServiceService, public dialogRef: MatDialogRef<DialogEditContactDetailsComponent>, private reminderservice: ReminderService) { }
 
   ngOnInit(): void {
-    this.birthDate = this.convertDate(this.contact.birthDate);
-    this.last_interaction = this.convertDate(this.contact.last_interaction);
+    this.birthDate = new Date(this.contact.birthDate);
+    this.last_interaction = new Date(this.contact.last_interaction);
   }
 
-  convertDate(dateToConvert) {
-    const dateStr: string = dateToConvert.toString();
-    const [monthStr, dayStr, yearStr] = dateStr.split('/');
-    const month = Number(monthStr);
-    const day = Number(dayStr);
-    const year = Number(yearStr);
-    const date = new Date(year, month - 1, day);
-    return date;
-  }
 
   async saveContact() {
-    this.contact.birthDate = this.birthDate ? this.birthDate.getTime() : 0;
-    this.contact.last_interaction = this.last_interaction ? this.last_interaction.getTime() : 0;
+    if (this.birthDate) this.contact.birthDate = this.birthDate.getTime();
+    if (this.last_interaction) this.contact.last_interaction = this.last_interaction.getTime();
+    if (this.contact.next_interaction) this.contact.next_interaction = this.reminderservice.getNextInteractionDate(this.contact, this.contact.last_interaction);
     try {
       this.loading = true;
       await this.contactservice.updateContact(this.contactId, this.contact);;

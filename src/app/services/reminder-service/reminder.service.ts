@@ -8,7 +8,7 @@ export class ReminderService {
 
   constructor(private utilityservice: UtilityServiceService) { }
 
-  checkNextInteractionDaysLeft(nextInt: Date,) {
+  checkNextInteractionDaysLeft(nextInt: number) {
     const today = new Date();
     const nextInterDate = new Date(nextInt);
     const differenceInMilliseconds = nextInterDate.getTime() - today.getTime();
@@ -16,7 +16,7 @@ export class ReminderService {
     return differenceInDays;
   }
 
-  getNextInteractionDate(contact: any, last_interaction: Date) {
+  getNextInteractionDate(contact: any, last_interaction: number) {
     if (contact.reminder_period && contact.reminder_qty && contact.last_interaction !== 0) {
       const days = this.utilityservice.calculateDays(contact.reminder_qty, contact.reminder_period.value);
       const next_interaction = this.calculateFutureDate(last_interaction, days);

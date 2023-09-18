@@ -14,6 +14,7 @@ export class Contact {
     reminder_period!: any;
     last_interaction: number;
     next_interaction: number;
+    nextIntDays: number;
     notes!: any;
 
     constructor(obj?: any) {
@@ -32,6 +33,7 @@ export class Contact {
         this.reminder_period = obj ? obj.reminder_period : [];
         this.last_interaction = obj ? obj.last_interaction : '';
         this.next_interaction = obj ? obj.next_interaction : '';
+        this.nextIntDays = obj ? obj.nextIntDays : '';
         this.notes = obj && obj.notes ? obj.notes : [];
     }
 
@@ -52,6 +54,7 @@ export class Contact {
             reminder_period: this.reminder_period,
             last_interaction: this.last_interaction,
             next_interaction: this.next_interaction,
+            nextIntDays: this.nextIntDays,
             notes: this.notes
         }
     }
