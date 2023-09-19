@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     height: 64px;
 
     img {
@@ -22,7 +22,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    
+
     li {
         display: flex;
         align-items: center;
@@ -44,4 +44,8 @@
     box-sizing: border-box;
     padding: 16px 56px;
     overflow-y: scroll;
+}
+
+.active {
+    border-left: 6px solid #C2195B;
 }
