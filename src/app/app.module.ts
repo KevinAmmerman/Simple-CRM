@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { CalendarComponent } from './calendar/calendar.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { InfoComponent } from './info/info.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -41,7 +41,7 @@ import { DialogEditContactInfoComponent } from './dialog-edit-contact-info/dialo
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
+    CalendarComponent,
     ContactsComponent,
     InfoComponent,
     DialogAddContactComponent,
