@@ -16,7 +16,7 @@
             </div>
             <span><b>Birth date:</b> {{birthDate}}</span>
             <span><b>Last interaction:</b> {{last_interaction}}</span>
-            <span><b>Next interaction:</b> {{next_interaction}}</span>
+            <span><b>Next interaction:</b><span [class.next_Int_color]="nextIntDays <= 0"> {{next_interaction}}</span></span>
         </div>
     </mat-card>
 

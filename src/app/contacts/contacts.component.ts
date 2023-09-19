@@ -18,6 +18,7 @@ export class ContactsComponent {
   contacts$ = this.contactService.getContacts();
   displayedColumns: string[] = ['firstName', 'last_interaction', 'next_interaction', 'category', 'email', 'reminder_period'];
   dataSource: any = [];
+  test: boolean;
 
 
   constructor(public dialog: MatDialog, private contactService: ContactServiceService, private utilityservice: UtilityServiceService, private reminderservice: ReminderService, private snackBar: MatSnackBar) { }
@@ -36,6 +37,11 @@ export class ContactsComponent {
     }), (error: any) => {
       this.snackBar.open(`Error retrieving contacts: ${error}`, 'close', { duration: 3000 });
     }
+  }
+
+  isTimeForInt(index: number) {
+    const boolean = this.dataSource[index].nextIntDays <= 0 ? true : false;
+    return boolean;
   }
 
   checkNextInteraction(contact: any) {

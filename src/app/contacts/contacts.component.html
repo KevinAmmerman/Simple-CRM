@@ -13,7 +13,7 @@
 
             <ng-container matColumnDef="next_interaction">
                 <th mat-header-cell *matHeaderCellDef> Next interaction </th>
-                <td mat-cell *matCellDef="let element"> {{element.next_interaction}}</td>
+                <td mat-cell *matCellDef="let element; let i = index"><span [class.next_Int_color]="isTimeForInt(i)">{{element.next_interaction}}</span></td>
             </ng-container>
 
             <ng-container matColumnDef="category">

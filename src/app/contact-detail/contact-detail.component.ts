@@ -26,7 +26,7 @@ export class ContactDetailComponent {
   indexNote: string;
   searchValue: string;
   displayedNotes: any;
-  nextIntDays: number;
+  public nextIntDays: number;
   last_interaction: string;
   next_interaction: string;
   reminder_qty: number;
@@ -67,11 +67,10 @@ export class ContactDetailComponent {
 
   calcDaysLeftToNextInteraction(contact: any) {
     this.nextIntDays = this.reminderservice.checkNextInteractionDaysLeft(contact.next_interaction);
+    console.log(this.nextIntDays)
   }
 
   resetLastInt() {
-    console.log('ContactDetails',this.contactDetails.reminder_period)
-    console.log('ContactEditReminder',this.contactDetails.reminder_qty)
     const newDate = new Date();
     const timeStamp = newDate.getTime();
     this.contactDetails.last_interaction = timeStamp;
