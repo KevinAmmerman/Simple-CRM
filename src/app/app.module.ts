@@ -35,6 +35,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { DialogEditContactDetailsComponent } from './dialog-edit-contact-details/dialog-edit-contact-details.component';
 import { DialogEditReminderComponent } from './dialog-edit-reminder/dialog-edit-reminder.component';
 import { DialogEditContactInfoComponent } from './dialog-edit-contact-info/dialog-edit-contact-info.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
@@ -75,7 +76,8 @@ import { DialogEditContactInfoComponent } from './dialog-edit-contact-info/dialo
     MatCardModule,
     MatListModule,
     MatExpansionModule,
-    MatMenuModule
+    MatMenuModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

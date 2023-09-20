@@ -1,9 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+ :root {
+     --fc-page-bg-color: tranparent;
+     --fc-border-color: grey;
+     --fc-event-bg-color: #096175;
+     --fc-button-bg-color: #096175;
+     --fc-button-border-color: #096175;
+     --fc-button-hover-bg-color: #075161;
+     --fc-button-hover-border-color: #075161;
+ }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+ html,
+ body {
+     height: 100%;
+ }
 
-.next_Int_color {
-    color: red;
-    font-weight: bold;
-}
+ body {
+     margin: 0;
+     font-family: Roboto, "Helvetica Neue", sans-serif;
+ }
+
+ .next_Int_color {
+     color: red;
+     font-weight: bold;
+ }
+
+
+ .fc-view-harness {
+     background-color: transparent;
+ }
+
+ .fc-daygrid-day {
+     color: #333333;
+
+ }
+
+
+ .fc-header-toolbar {
+     background-color: transparent;
+     border-color: #096175;
+ }
+
+ .fc-scrollgrid-sync-inner>a {
+     color: #C2195B;
+ }
+
+ .fc-daygrid-day-top>a {
+     color: #C2195B;
+     font-weight: bold;
+     font-size: 16px;
+ }
+
+ .fc-h-event .fc-event-title-container {
+    text-align: center;
+ }

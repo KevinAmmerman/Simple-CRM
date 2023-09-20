@@ -1,3 +1,3 @@
 <section>
-    <mat-calendar></mat-calendar>
+    <full-calendar #calendar *ngIf="dataLoaded" [options]="calendarOptions"></full-calendar>
 </section>
